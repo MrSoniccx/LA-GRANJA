@@ -1,26 +1,25 @@
-class Lineal {
-  /**
-   *
-   * @param {Number} x0
-   * @param {Number} x
-   * @param {Number} x1
-   */
-  constructor(x0, x, x1) {
+export default class Lineal {
+  
+  constructor(x, x0, x1, fx, fx0, fx1) {
     this.x0 = x0;
     this.x = x;
     this.x1 = x1;
+    this.fx = fx
+    this.fx0 = fx0
+    this.fx1 = fx1
   }
 
   operacion() {
-    let fx0 = Math.log(this.x0);
-    let fx = Math.log(this.x);
-    let fx1 = Math.log(this.x1);
-    let formula1 = Number(((this.x - this.x1) / (this.x0 - this.x1)) * fx0);
-    let formula2 = Number(((this.x - this.x0) / (this.x1 - this.x0)) * fx1);
+    
+    let formula1 = Number((((this.x - this.x1) / (this.x0 - this.x1)) * this.fx0).toFixed(4))
+    let formula2 = Number((((this.x - this.x0) / (this.x1 - this.x0)) * this.fx1).toFixed(4))
     let aproximacion = formula1 + formula2;
-    return aproximacion;
+    return aproximacion.toFixed(4);
+  }
+
+  getError(error) {
+    let errorV = this.fx-error
+    return (""+((errorV/this.fx)*100).toFixed(2)+" %")
   }
 }
 
-let test = new Lineal(0.5, 1, 1.5);
-console.log(test.operacion());
